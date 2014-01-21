@@ -19,10 +19,12 @@ class Font(object):
         sprites = []
         for ln, l in enumerate(lines):
             for cn, c in enumerate(l):
-                if c in self.bindings:
-                    img = self[c]
+                if c.lower() in self.bindings:
+                    img = self[c.lower()]
                     x = cn * 4 + 2
                     y = 40 - (ln + 1) * 8 + 4
                     spr = pyglet.sprite.Sprite(img, x, y)
                     sprites.append(spr)
+                    if c.isupper():
+                        spr.color = (255, 255, 0)
         return sprites
