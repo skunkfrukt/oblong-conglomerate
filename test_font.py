@@ -1,5 +1,5 @@
 import pyglet
-from src import text
+from src import text, scene
 
 f_bindings = {
     'a': 16*5+0,
@@ -74,23 +74,26 @@ class TestWindow(pyglet.window.Window):
         super(TestWindow, self).__init__(64,48)
         self.f = text.Font('data/font.png', 16, 6, f_bindings)
         self.time = 0
-        self.text = [
-            "to be or not",
-            "to be that is",
-            "the question",
-            " +-/ *",
-            "sort of"
+        text1 = [
+            "the kingdom is",
+            "in shambles.",
+            "never were the",
+            "cries for a",
+            "hero so great."
         ]
-        self.sprites = self.f.render(self.text)
+        scene1 = scene.TextScene(None, text1, self.f, final_delay=2)
+        self.scene = scene1
+        self.scene.setup()
 
     def on_draw(self):
         self.clear()
-        i = int(self.time*5)
-        for s in self.sprites[:i]:
-            s.draw()
+        self.scene.draw()
 
     def update(self, dt):
         self.time += dt
+        if self.scene.update(dt) == 'DONE':
+            self.scene.next.setup()
+            self.scene = self.scene.next
 
 w = TestWindow()
 pyglet.clock.schedule(w.update)
