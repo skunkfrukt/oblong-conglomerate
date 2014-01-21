@@ -81,7 +81,38 @@ class TestWindow(pyglet.window.Window):
             "cries for a",
             "hero so great."
         ]
+        text2 = [
+            "you have read",
+            "like two dozen",
+            "stories about",
+            "gallant knights",
+            "and champions."
+        ]
+        text3 = [
+            "it falls on you",
+            "to deliver this",
+            "land from evil",
+            "and inevitable",
+            "   distraction."
+        ]
+        title_text = [
+            "+------o------+",
+            "THE QUEST FOR |",
+            "THE      OBLONG",
+            "|  CONGLOMERATE",
+            "+------x------+"
+        ]
+
         scene1 = scene.TextScene(None, text1, self.f, final_delay=2)
+        scene2 = scene.TextScene(None, text2, self.f, final_delay=2)
+        scene3 = scene.TextScene(None, text3, self.f, final_delay=2)
+        scene4 = scene.TextScene(None, title_text, self.f)
+
+        scene1.next = scene2
+        scene2.next = scene3
+        scene3.next = scene4
+        scene4.next = None  #TODO First gameplay scene
+
         self.scene = scene1
         self.scene.setup()
 
