@@ -37,5 +37,20 @@ class TextScene(Scene):
 
 
 class GameScene(Scene):
-    def __init__(self, tilemap, ):
+    def __init__(self, tilemap):
+        self.tilemap = tilemap
+        self.backgrounds = []
+        self.sprites = []
+
+    def setup(self):
+        for tset in self.tilemap.tilesets:
+            pass
+
+    def update(self, dt):
         pass
+
+    def draw(self):
+        for bg in self.backgrounds:
+            bg.draw()
+        for spr in self.sprites:
+            spr.draw()
