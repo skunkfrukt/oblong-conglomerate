@@ -2,6 +2,7 @@ import pyglet
 from src import tilemap
 
 pyglet.resource.path.append('./data')
+pyglet.resource.reindex()
 
 
 
