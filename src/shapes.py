@@ -83,10 +83,8 @@ class Vect(object):
 
 class Rect(object):
     def __init__(self, x, y, width, height):
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
+        self.position = Vect(x, y)
+        self.size = Vect(width, height)
 
     def __and__(self, other):
         left = max(self.x, other.x)
@@ -101,3 +99,19 @@ class Rect(object):
 
     def __str__(self):
         return '<{w}x{h}Rect@{x},{y}>'.format(w=self.width, h=self.height, x=self.x, y=self.y)
+
+    @property
+    def x(self):
+        return self.position.x
+
+    @property
+    def y(self):
+        return self.position.y
+
+    @property
+    def width(self):
+        return self.size.x
+
+    @property
+    def height(self):
+        return self.size.y
