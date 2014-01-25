@@ -82,6 +82,10 @@ class Vect(object):
         return math.atan2(self.y, self.x)
 
 class Rect(object):
+    @classmethod
+    def from_vectors(Cls, position, size):
+        return Cls(position.x, position.y, size.x, size.y)
+
     def __init__(self, x, y, width, height):
         self.position = Vect(x, y)
         self.size = Vect(width, height)
@@ -115,3 +119,6 @@ class Rect(object):
     @property
     def height(self):
         return self.size.y
+
+    def __add__(self, vect):
+        return Rect.from_vectors(self.position + vect, self.size)
