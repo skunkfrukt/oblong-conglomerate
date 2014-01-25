@@ -1,14 +1,15 @@
 import pyglet
+from pyglet.gl import *
 from src import tilemap
 
 pyglet.resource.path.append('./data')
 pyglet.resource.reindex()
 
-
+SCALE = 8
 
 class TestWindow(pyglet.window.Window):
     def __init__(self):
-        super(TestWindow, self).__init__(256, 48, caption="\'blong Cong")
+        super(TestWindow, self).__init__(64*SCALE, 48*SCALE, caption="\'blong Cong")
         self.map = testmap = tilemap.load('data/m_stage1.json')
         self.sprites = []
         l = self.map.layers[0]
@@ -25,6 +26,8 @@ class TestWindow(pyglet.window.Window):
 
     def on_draw(self):
         self.clear()
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
         for spr in self.sprites:
             spr.draw()
         '''for i, c in enumerate(self.map.tilesets[0]):
@@ -32,6 +35,8 @@ class TestWindow(pyglet.window.Window):
 
 
 w = TestWindow()
+glScalef(SCALE, SCALE, SCALE)
+
 #pyglet.clock.schedule(w.update)
 
 pyglet.app.run()

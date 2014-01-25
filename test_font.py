@@ -1,5 +1,8 @@
 import pyglet
+from pyglet.gl import *
 from src import text, scene
+
+SCALE = 8
 
 f_bindings = {
     'a': 16*5+0,
@@ -71,7 +74,7 @@ f_bindings = {
 
 class TestWindow(pyglet.window.Window):
     def __init__(self):
-        super(TestWindow, self).__init__(64,48)
+        super(TestWindow, self).__init__(64*SCALE,48*SCALE)
         self.f = text.Font('data/font.png', 16, 6, f_bindings)
         self.time = 0
         text1 = [
@@ -118,6 +121,8 @@ class TestWindow(pyglet.window.Window):
 
     def on_draw(self):
         self.clear()
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
         self.scene.draw()
 
     def update(self, dt):
@@ -127,6 +132,7 @@ class TestWindow(pyglet.window.Window):
             self.scene = self.scene.next
 
 w = TestWindow()
+glScalef(SCALE, SCALE, SCALE)
 pyglet.clock.schedule(w.update)
 
 pyglet.app.run()
