@@ -1,5 +1,6 @@
 import json
 import pyglet
+from shapes import *
 
 def load(filename):
     f = pyglet.resource.file(filename)
@@ -32,6 +33,7 @@ def parse_tilelayer(json_obj):
     tlay.y = json_obj['y']
     tlay.type = json_obj['type']
     tlay.data = json_obj['data']
+    tlay.properties = json_obj['properties']
     return tlay
 
 def parse_tileset(json_obj):
@@ -59,7 +61,30 @@ def parse_tileset(json_obj):
 
 class TileMap(object):
     def __init__(self):
-        pass
+        self.tiles = []
+
+    def setup(self):
+        for lay in self.layers:
+            collision_type = lay.properties.get('collision-type', 'void')
+            print 'layer', lay.name, 'type', collision_type
+            if collision_type in ('block', 'ladder'):
+                for row in range(lay.height):
+                    for col in range(lay.width):
+                        index = row * lay.width + col
+                        if lay[index] > 0:
+                            w = self.tilewidth
+                            h = self.tileheight
+                            x = col * w
+                            y = row * h
+                            tile = Tile(x, y, w, h, collision_type)
+                            self.tiles.append(tile)
+        print len(self.tiles), self.width * self.height
+
+
+class Tile(object):
+    def __init__(self, x, y, w, h, collision_type):
+        self.hitbox = Rect(x, y, w, h)
+        self.collision_type = collision_type
 
 
 class TileMapView(object):
