@@ -3,7 +3,7 @@ from pyglet.gl import *
 from pyglet.window import key
 from src import knightexpert, shapes
 
-SCALE = 8
+SCALE = 5
 
 class W(pyglet.window.Window):
     def __init__(self):
@@ -23,8 +23,7 @@ def update(dt):
     pass
 
 def update_model(dt):
-    w.ke.start_move(dt)
-    w.ke.finish_move()
+    w.ke.move(dt)
 
 w = W()
 glScalef(SCALE, SCALE, SCALE)
