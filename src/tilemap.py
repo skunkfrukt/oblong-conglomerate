@@ -4,33 +4,99 @@ import pyglet
 def load(filename):
     f = pyglet.resource.file(filename)
     j = json.load(f)
-    return TileMap(j)
+    return parse_tilemap(j)
+
+def parse_tilemap(json_obj):
+    tmap = TileMap()
+    tmap.layers = [parse_tilelayer(a) for a in json_obj['layers']]
+    tmap.orientation = json_obj['orientation']
+    tmap.tilewidth = json_obj['tilewidth']
+    tmap.tileheight = json_obj['tileheight']
+    tmap.width = json_obj['width']
+    tmap.height = json_obj['height']
+    tmap.version = json_obj['version']
+    # tmap.backgroundcolor = json_obj['backgroundcolor']
+    tmap.properties = json_obj['properties']
+    tmapv = TileMapView(tmap)
+    tmapv.tilesets = [parse_tileset(a) for a in json_obj['tilesets']]
+    return tmap, tmapv
+
+def parse_tilelayer(json_obj):
+    tlay = TileLayer()
+    tlay.opacity = json_obj['opacity']
+    tlay.name = json_obj['name']
+    tlay.width = json_obj['width']
+    tlay.height = json_obj['height']
+    tlay.visible = json_obj['visible']
+    tlay.x = json_obj['x']
+    tlay.y = json_obj['y']
+    tlay.type = json_obj['type']
+    tlay.data = json_obj['data']
+    return tlay
+
+def parse_tileset(json_obj):
+    tset = TileSet()
+    tset.name = json_obj['name']
+    tset.tilewidth = json_obj['tilewidth']
+    tset.tileheight = json_obj['tileheight']
+    tset.transparentcolor = json_obj['transparentcolor']
+    spacing = json_obj['spacing']
+    imagewidth = json_obj['imagewidth']
+    imageheight = json_obj['imageheight']
+    tset.firstgid = json_obj['firstgid']
+    margin = json_obj['margin']
+    tset.properties = json_obj['properties']
+    tset.rows = imageheight / tset.tileheight
+    tset.cols = imagewidth / tset.tilewidth
+    image = pyglet.resource.image(json_obj['image'])#.get_region(
+           # margin, margin, imagewidth-margin, imageheight-margin)
+    tset.grid = pyglet.image.ImageGrid(image,
+            tset.rows, tset.cols,
+            item_width=tset.tilewidth, item_height=tset.tileheight,
+            row_padding=spacing, column_padding=spacing)
+    return tset
+
 
 class TileMap(object):
-    def __init__(self, json_obj):
-        self.layers = [TileMapLayer(a) for a in json_obj['layers']]
-        self.orientation = json_obj['orientation']
-        self.tilewidth = json_obj['tilewidth']
-        self.tileheight = json_obj['tileheight']
-        self.width = json_obj['width']
-        self.height = json_obj['height']
-        self.version = json_obj['version']
-        self.backgroundcolor = json_obj['backgroundcolor']
-        self.tilesets = [TileSet(a) for a in json_obj['tilesets']]
-        self.properties = json_obj['properties']
+    def __init__(self):
+        pass
 
 
-class TileMapLayer(object):
-    def __init__(self, json_obj):
-        self.opacity = json_obj['opacity']
-        self.name = json_obj['name']
-        self.width = json_obj['width']
-        self.height = json_obj['height']
-        self.visible = json_obj['visible']
-        self.x = json_obj['x']
-        self.y = json_obj['y']
-        self.type = json_obj['type']
-        self.data = json_obj['data']
+class TileMapView(object):
+    def __init__(self, model):
+        self.model = model
+        self.tilesets = []
+        self.tileset = {}
+
+    def index_tiles(self):
+        for tset in self.tilesets:
+            for index, tile in enumerate(tset):
+                self.tileset[tset.firstgid + index] = tile
+
+    def setup(self):
+        self.index_tiles()
+        self.batch = pyglet.graphics.Batch()
+        self.groups = []
+        self.sprites = []
+        t_w = self.model.tilewidth
+        t_h = self.model.tileheight
+        for lay in self.model.layers:
+            lay_index = len(self.groups)
+            self.groups.append(pyglet.graphics.OrderedGroup(lay_index))
+            for col in range(lay.width):
+                for row in range(lay.height):
+                    t_index = row * lay.width + col
+                    if lay[t_index] > 0:
+                        img = self.tileset[lay[t_index]]
+                        x, y = t_w * col, t_h * row
+                        spr = pyglet.sprite.Sprite(img, x, y, batch=self.batch,
+                                group=self.groups[-1])
+                        self.sprites.append(spr)
+
+
+class TileLayer(object):
+    def __init__(self):
+        pass
 
     def __getitem__(self, index):
         """ Adjusts for Pyglet's inverted y axis. """
@@ -40,25 +106,8 @@ class TileMapLayer(object):
 
 
 class TileSet(object):
-    def __init__(self, json_obj):
-        self.name = json_obj['name']
-        self.tilewidth = json_obj['tilewidth']
-        self.tileheight = json_obj['tileheight']
-        self.transparentcolor = json_obj['transparentcolor']
-        spacing = json_obj['spacing']
-        imagewidth = json_obj['imagewidth']
-        imageheight = json_obj['imageheight']
-        self.firstgid = json_obj['firstgid']
-        margin = json_obj['margin']
-        self.properties = json_obj['properties']
-        self.rows = imageheight / self.tileheight
-        self.cols = imagewidth / self.tilewidth
-        image = pyglet.resource.image(json_obj['image'])#.get_region(
-               # margin, margin, imagewidth-margin, imageheight-margin)
-        self.grid = pyglet.image.ImageGrid(image,
-                self.rows, self.cols,
-                item_width=self.tilewidth, item_height=self.tileheight,
-                row_padding=spacing, column_padding=spacing)
+    def __init__(self):
+        pass
 
     def __getitem__(self, index):
         """ Adjusts for Pyglet's inverted y axis. """
