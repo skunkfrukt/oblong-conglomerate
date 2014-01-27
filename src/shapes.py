@@ -93,8 +93,8 @@ class Rect(object):
     def __and__(self, other):
         left = max(self.x, other.x)
         bottom = max(self.y, other.y)
-        right = min(self.x + self.width, other.x + other.width)
-        top = min(self.y + self.height, other.y + other.height)
+        right = min(self.right, other.right)
+        top = min(self.top, other.top)
         intersection = Rect(left, bottom, right - left, top - bottom)
         if intersection.width > 0 and intersection.height > 0:
             return intersection
@@ -103,6 +103,14 @@ class Rect(object):
 
     def __str__(self):
         return '<{w}x{h}Rect@{x},{y}>'.format(w=self.width, h=self.height, x=self.x, y=self.y)
+
+    @property
+    def right(self):
+        return self.x + self.width - 1
+
+    @property
+    def top(self):
+        return self.y + self.height - 1
 
     @property
     def x(self):

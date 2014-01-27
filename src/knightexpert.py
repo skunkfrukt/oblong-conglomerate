@@ -24,7 +24,7 @@ class KnightExpert(object):
     def move(self, dt):
         self.oldbox = self.hitbox
         if self.state not in ('walking', 'idle'):
-            self.velocity += Vect(0, -36)
+            self.velocity += Vect(0, -45) * dt
         self.hitbox += self.velocity * dt
 
     def walk(self, direction):
@@ -38,7 +38,7 @@ class KnightExpert(object):
 
     def jump(self):
         if self.state in ('idle', 'walking'):
-            self.velocity += Vect(0, 200)
+            self.velocity += Vect(0, 40)
             self.state = 'jumping'
         elif self.state == 'climbing':
             self.state = 'falling'
@@ -78,7 +78,7 @@ class KnightExpertView(object):
             self.current_animation = next_animation
 
     def update_sprite_position(self, screen_offset):
-        self.sprite.position = self.model.position + screen_offset
+        self.sprite.position = self.model.position + self.sprite_offset + screen_offset
 
     @property
     def drawable(self):
