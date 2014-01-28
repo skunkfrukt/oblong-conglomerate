@@ -132,7 +132,12 @@ class TileMapView(object):
                         x, y = t_w * col, t_h * row
                         spr = pyglet.sprite.Sprite(img, x, y, batch=self.batch,
                                 group=self.groups[-1])
+                        spr.original_position = Vect(spr.x, spr.y)
                         self.sprites.append(spr)
+
+    def update_sprite_position(self, offset):
+        for spr in self.sprites:
+            spr.position = spr.original_position + offset
 
 
 class TileLayer(object):
