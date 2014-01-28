@@ -2,7 +2,7 @@ import pyglet
 from pyglet.gl import *
 from src import text, scene
 
-SCALE = 8
+SCALE = 4
 
 f_bindings = {
     'a': 16*5+0,
