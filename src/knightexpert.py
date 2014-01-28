@@ -11,7 +11,7 @@ class KnightExpert(object):
         self.nextbox = self.hitbox
         self.velocity = Vect(0,0)
         self.acceleration = Vect(0,0)
-        self.runspeed = 10
+        self.runspeed = 20
         self.moving = False
         self.moved = False
         self.grounded = True
@@ -19,7 +19,7 @@ class KnightExpert(object):
         self.walking = None
         self.stopping = True
         self.direction = 'L'
-        self.state = 'idle'
+        self.state = 'falling'
 
     def start_move(self, dt):
         # self.oldbox = self.hitbox
@@ -38,7 +38,7 @@ class KnightExpert(object):
 
     def jump(self):
         if self.state in ('idle', 'walking'):
-            self.velocity += Vect(0, 40)
+            self.velocity += Vect(0, 50)
             self.state = 'jumping'
         elif self.state == 'climbing':
             self.state = 'falling'
@@ -65,7 +65,7 @@ class KnightExpertView(object):
         spritesheet = pyglet.resource.image('data/s_knightexpert.png')
         grid = pyglet.image.ImageGrid(spritesheet, 4, 4)
         self.animations = {
-            'idle': grid[0]
+            'idle': grid[12]
         }
         self.current_animation = None
         self.sprite = pyglet.sprite.Sprite(self.animations['idle'])
