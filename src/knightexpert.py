@@ -21,11 +21,11 @@ class KnightExpert(object):
         self.direction = 'L'
         self.state = 'idle'
 
-    def move(self, dt):
-        self.oldbox = self.hitbox
-        if self.state not in ('walking', 'idle'):
-            self.velocity += Vect(0, -45) * dt
-        self.hitbox += self.velocity * dt
+    def start_move(self, dt):
+        # self.oldbox = self.hitbox
+        if True:  # self.state not in ('walking', 'idle'):
+            self.velocity += Vect(0, -120) * dt
+        # self.hitbox += self.velocity * dt
 
     def walk(self, direction):
         if self.state not in ('hurt', 'dead'):
