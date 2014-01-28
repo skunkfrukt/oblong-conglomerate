@@ -1,5 +1,5 @@
 class Vect(object):
-    def __init__(self, x, y):
+    def __init__(self, x=0, y=0):
         self._tuple = (x, y)
         self._length = None
 
@@ -105,8 +105,16 @@ class Rect(object):
         return '<{w}x{h}Rect@{x},{y}>'.format(w=self.width, h=self.height, x=self.x, y=self.y)
 
     @property
+    def left(self):
+        return self.x
+
+    @property
     def right(self):
         return self.x + self.width - 1
+
+    @property
+    def bottom(self):
+        return self.y
 
     @property
     def top(self):
