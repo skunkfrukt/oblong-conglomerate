@@ -33,41 +33,64 @@ class TestWindow(pyglet.window.Window):
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
         placeholder = self.mapv.tileset[24]
+        stage_width = 256
+        screen_width = 64
+        player_position = self.ke.hitbox.x
+        screen_offset = int(-max(min(player_position - 32, stage_width - screen_width), 0))
+        self.mapv.update_sprite_position(Vect(x=screen_offset))
         try:
             self.mapv.batch.draw()
         except:
             print 'couldn\'t draw tilemap'
-        for t in self.map.tiles:
-            placeholder.blit(t.hitbox.x, t.hitbox.y)
-        try:
-            placeholder.blit(w.ke.oldbox.x, w.ke.oldbox.y)
-        except:
-            pass
-        self.kev.update_sprite_position(Vect(0,0))
+        self.kev.update_sprite_position(Vect(screen_offset,0))
         self.kev.drawable.draw()
 
 
 w = TestWindow()
 glScalef(SCALE, SCALE, SCALE)
 
-def update_model(dt):
-    w.ke.move(dt)
-    collisions = collider.collide(w.things)
-    for collision in collisions:
-        if w.ke in collision:
-            for a in collision:
-                if a is not w.ke:
-                    other = a
-            if w.ke.velocity.x > 0:  # and w.ke.oldbox.right <= other.hitbox.x:
-                w.ke.hitbox += Vect(other.hitbox.x - w.ke.hitbox.right - 1, 0)
-                w.ke.velocity = Vect(0, w.ke.velocity.y)
-            elif w.ke.velocity.x < 0: # and w.ke.oldbox.x >= other.hitbox.right:
-                w.ke.hitbox += Vect(other.hitbox.right - w.ke.hitbox.x + 1, 0)
-                w.ke.velocity = Vect(0, w.ke.velocity.y)
-            if w.ke.velocity.y < 0: #and w.ke.oldbox.y >= other.hitbox.top:
-                w.ke.hitbox += Vect(0, other.hitbox.top - w.ke.hitbox.y +1)
-                w.ke.velocity = Vect(w.ke.velocity.x, 0)
+def mupdate(dt):
+    w.ke.start_move(dt)
+    delta = w.ke.velocity * dt
+    rows = range(int(w.ke.hitbox.bottom // w.map.tileheight),
+            int(w.ke.hitbox.top // w.map.tileheight) + 1)
+    if delta.x < 0:
+        cols = range(int((w.ke.hitbox.left - 1) // w.map.tilewidth),
+                int((w.ke.hitbox.left + delta.x) // w.map.tilewidth) - 1, -1)
+    elif delta.x > 0:
+        cols = range(int((w.ke.hitbox.right + 1) // w.map.tilewidth),
+                int((w.ke.hitbox.right + delta.x) // w.map.tilewidth) + 1)
+    else:
+        cols = []
+    candidates_x = [(col, row) for col in cols for row in rows]
+    hit_x = w.map.find_obstacle(candidates_x)
+    if hit_x:
+        w.ke.velocity = Vect(0, w.ke.velocity.y)
+        if delta.x < 0:
+            delta = Vect(hit_x.right + 1 - w.ke.hitbox.left, delta.y)
+        elif delta.x > 0:
+            delta = Vect(hit_x.left - 1 - w.ke.hitbox.right, delta.y)
+    cols = range(int((w.ke.hitbox.left + delta.x) // w.map.tilewidth),
+            int((w.ke.hitbox.right + delta.x) // w.map.tilewidth) + 1)
+    if delta.y < 0:
+        rows = range(int((w.ke.hitbox.bottom - 1) // w.map.tileheight),
+                int((w.ke.hitbox.bottom + delta.y) // w.map.tileheight) - 1, -1)
+    elif delta.y > 0:
+        rows = range(int((w.ke.hitbox.top + 1) // w.map.tileheight),
+                int((w.ke.hitbox.top + delta.y) // w.map.tileheight) + 1)
+    candidates_y = [(col, row) for row in rows for col in cols]
+    hit_y = w.map.find_obstacle(candidates_y)
+    if hit_y:
+        w.ke.velocity = Vect(w.ke.velocity.x, 0)
+        if delta.y < 0:
+            delta = Vect(delta.x, hit_y.top + 1 - w.ke.hitbox.bottom)
+            if delta.x == 0:
                 w.ke.state = 'idle'
+            else:
+                w.ke.state = 'walking'
+        elif delta.y > 0:
+            delta = Vect(delta.x, hit_y.bottom - 1 - w.ke.hitbox.top)
+    w.ke.hitbox += delta
 
 
 w.push_handlers(w.kec.keys)
@@ -80,5 +103,5 @@ def on_key_press(symbol, modifiers):
 def on_key_release(symbol, modifiers):
     w.kec.on_key_release(symbol, modifiers)
 
-pyglet.clock.schedule_interval(update_model, 0.02)
+pyglet.clock.schedule_interval(mupdate, 0.02)
 pyglet.app.run()

@@ -62,12 +62,14 @@ def parse_tileset(json_obj):
 class TileMap(object):
     def __init__(self):
         self.tiles = []
+        self.obstacle = []
 
     def setup(self):
+        self.obstacle = [False] * self.width * self.height
         for lay in self.layers:
             collision_type = lay.properties.get('collision-type', 'void')
             print 'layer', lay.name, 'type', collision_type
-            if collision_type in ('block', 'ladder'):
+            if collision_type == 'block':
                 for row in range(lay.height):
                     for col in range(lay.width):
                         index = row * lay.width + col
@@ -76,9 +78,23 @@ class TileMap(object):
                             h = self.tileheight
                             x = col * w
                             y = row * h
-                            tile = Tile(x, y, w, h, collision_type)
-                            self.tiles.append(tile)
-        print len(self.tiles), self.width * self.height
+                            self.obstacle[index] = True
+
+    def find_obstacle(self, coordinate_list):
+        for col, row in coordinate_list:
+            if self.obstacle_at(col, row):
+                return self.rect_at(col, row)
+        return None
+
+    def obstacle_at(self, col, row):
+        if col in range(self.width) and row in range(self.height):
+            tileindex = row * self.width + col
+            return self.obstacle[tileindex]
+        else:
+            return False  # Handle screen exit.
+
+    def rect_at(self, col, row):
+        return Rect(col * self.tilewidth, row * self.tileheight, self.tilewidth, self.tileheight)
 
 
 class Tile(object):
