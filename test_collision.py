@@ -18,7 +18,7 @@ class TestWindow(pyglet.window.Window):
         self.map.setup()
         self.mapv.setup()
         self.ke = knightexpert.KnightExpert()
-        self.ke.hitbox += Vect(5, 15)
+        self.ke.hitbox += Vect(4, 4)
         self.kev = knightexpert.KnightExpertView(self.ke)
         self.kec = knightexpert.KnightExpertController(self.ke)
         self.things = []
