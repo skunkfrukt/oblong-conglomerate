@@ -11,7 +11,7 @@ class KnightExpert(object):
         self.nextbox = self.hitbox
         self.velocity = Vect(0,0)
         self.acceleration = Vect(0,0)
-        self.runspeed = 20
+        self.runspeed = 40  # 20
         self.moving = False
         self.moved = False
         self.grounded = True
