@@ -106,6 +106,7 @@ class Tile(object):
 class TileMapView(object):
     def __init__(self, model):
         self.model = model
+        self.sprites = []
         self.tilesets = []
         self.tileset = {}
 
