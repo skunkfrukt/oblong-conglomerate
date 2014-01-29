@@ -2,482 +2,482 @@
     "texts": [
         {
             "text": [
-                " our answer is", 
-                " YES!", 
-                "", 
-                " let's be KINGs", 
+                " our answer is",
+                " YES!",
+                "",
+                " let's be KINGs",
                 " together."
-            ], 
+            ],
             "name": "king-postTriumph-3-ifRing"
-        }, 
+        },
         {
             "text": [
-                " we have", 
-                " contemplated", 
-                " the ring thou", 
-                " offered us", 
+                " we have",
+                " contemplated",
+                " the ring thou",
+                " offered us",
                 " earlier."
-            ], 
+            ],
             "name": "king-postTriumph-2-ifRing"
-        }, 
+        },
         {
             "text": [
-                "BRAWNY SMITH:", 
-                "", 
-                "-even the iron", 
-                " feels brittle", 
+                "BRAWNY SMITH:",
+                "",
+                "-even the iron",
+                " feels brittle",
                 " of late."
-            ], 
+            ],
             "name": "smith-preKing"
-        }, 
+        },
         {
             "text": [
-                "", 
-                "the night is", 
-                "horrible and", 
+                "",
+                "the night is",
+                "horrible and",
                 "full of curses"
-            ], 
+            ],
             "name": "intermission-3to2+"
-        }, 
+        },
         {
             "text": [
-                "", 
-                "-i never once", 
-                " doubted your", 
+                "",
+                "-i never once",
+                " doubted your",
                 " ability."
-            ], 
+            ],
             "name": "smith-postTriumph"
-        }, 
+        },
         {
             "text": [
-                "SHIFTY PEDDLER:", 
-                "", 
-                "-take this RING", 
-                " and bring it", 
+                "SHIFTY PEDDLER:",
+                "",
+                "-take this RING",
+                " and bring it",
                 " to the KING."
-            ], 
+            ],
             "name": "peddler-preKing"
-        }, 
+        },
         {
             "text": [
-                "+- EPILOGUE -+", 
-                "", 
-                "with the OBLONG", 
-                "CONGLOMERATE", 
+                "+- EPILOGUE -+",
+                "",
+                "with the OBLONG",
+                "CONGLOMERATE",
                 "back in the"
-            ], 
+            ],
             "name": "goodEnding-0"
-        }, 
+        },
         {
             "text": [
-                "content with a", 
-                "job well done,", 
-                "you take off in", 
-                "search of new", 
+                "content with a",
+                "job well done,",
+                "you take off in",
+                "search of new",
                 "adventures."
-            ], 
+            ],
             "name": "goodEnding-3"
-        }, 
+        },
         {
             "text": [
-                "BRAWNY SMITH:", 
-                "", 
-                "-be careful out", 
+                "BRAWNY SMITH:",
+                "",
+                "-be careful out",
                 " there, mate."
-            ], 
+            ],
             "name": "smith-postKing"
-        }, 
+        },
         {
             "text": [
-                "POOR VILLAGER:", 
-                "", 
-                "-maybe someone", 
+                "POOR VILLAGER:",
+                "",
+                "-maybe someone",
                 " will help us."
-            ], 
+            ],
             "name": "villager-postKing"
-        }, 
+        },
         {
             "text": [
-                "+------o------+", 
-                "THE QUEST FOR |", 
-                "THE      OBLONG", 
-                "|  CONGLOMERATE", 
+                "+------o------+",
+                "THE QUEST FOR |",
+                "THE      OBLONG",
+                "|  CONGLOMERATE",
                 "+------x------+"
-            ], 
+            ],
             "name": "title"
-        }, 
+        },
         {
             "text": [
-                "royal treasury,", 
-                "an era of peace", 
-                "and prosperity", 
+                "royal treasury,",
+                "an era of peace",
+                "and prosperity",
                 "begins."
-            ], 
+            ],
             "name": "goodEnding-1"
-        }, 
+        },
         {
             "text": [
-                "and like that,", 
-                "the OBLONG", 
-                "CONGLOMERATE", 
-                "yields to your", 
+                "and like that,",
+                "the OBLONG",
+                "CONGLOMERATE",
+                "yields to your",
                 "efforts."
-            ], 
+            ],
             "name": "getBlongCong"
-        }, 
+        },
         {
             "text": [
-                "", 
-                "", 
+                "",
+                "",
                 "CONGLOMERATIONS"
-            ], 
+            ],
             "name": "anyEnding-2"
-        }, 
+        },
         {
             "text": [
-                "", 
-                "", 
+                "",
+                "",
                 "or shall we say"
-            ], 
+            ],
             "name": "anyEnding-1"
-        }, 
+        },
         {
             "text": [
-                "", 
-                "    you win!", 
-                "", 
+                "",
+                "    you win!",
+                "",
                 "congratulations"
-            ], 
+            ],
             "name": "anyEnding-0"
-        }, 
+        },
         {
             "text": [
-                "WISE OLD KING:", 
-                "", 
-                "-thou art our", 
+                "WISE OLD KING:",
+                "",
+                "-thou art our",
                 " only hope!"
-            ], 
+            ],
             "name": "king-postKing"
-        }, 
+        },
         {
             "text": [
-                "VIGILANT GUARD:", 
-                "", 
-                "-never send a", 
-                " boy to do the", 
+                "VIGILANT GUARD:",
+                "",
+                "-never send a",
+                " boy to do the",
                 " work of a man."
-            ], 
+            ],
             "name": "guard-prePower"
-        }, 
+        },
         {
             "text": [
-                "desolate,", 
-                "defeated, you", 
-                "make your way", 
-                "home with a", 
+                "desolate,",
+                "defeated, you",
+                "make your way",
+                "home with a",
                 "heavy heart."
-            ], 
+            ],
             "name": "intermission-2+to1+"
-        }, 
+        },
         {
             "text": [
-                "ever and ever", 
-                "and ever and", 
-                "ever and ever", 
-                "and ever and", 
+                "ever and ever",
+                "and ever and",
+                "ever and ever",
+                "and ever and",
                 "ever and ever"
-            ], 
+            ],
             "name": "bestEnding-4"
-        }, 
+        },
         {
             "text": [
-                "you return,", 
-                "triumphant, to", 
-                "a changed town,", 
-                "bright, busy", 
+                "you return,",
+                "triumphant, to",
+                "a changed town,",
+                "bright, busy",
                 "and joyful."
-            ], 
+            ],
             "name": "triumphant-return"
-        }, 
+        },
         {
             "text": [
-                "VIGILANT GUARD:", 
-                "", 
-                "-go speak with", 
-                " the KING to", 
+                "VIGILANT GUARD:",
+                "",
+                "-go speak with",
+                " the KING to",
                 " the west."
-            ], 
+            ],
             "name": "guard-preKing"
-        }, 
+        },
         {
             "text": [
-                "you have read", 
-                "like two dozen", 
-                "stories about", 
-                "gallant knights", 
+                "you have read",
+                "like two dozen",
+                "stories about",
+                "gallant knights",
                 "and champions."
-            ], 
+            ],
             "name": "opening-2"
-        }, 
+        },
         {
             "text": [
-                "WISE OLD KING:", 
-                "", 
-                "-the power was", 
-                " inside you all", 
+                "WISE OLD KING:",
+                "",
+                "-the power was",
+                " inside you all",
                 " along!"
-            ], 
+            ],
             "name": "king-prePower"
-        }, 
+        },
         {
             "text": [
-                "the kingdom is", 
-                "in shambles.", 
-                "never was the", 
-                "need of a hero", 
+                "the kingdom is",
+                "in shambles.",
+                "never was the",
+                "need of a hero",
                 "as great."
-            ], 
+            ],
             "name": "opening-1"
-        }, 
+        },
         {
             "text": [
-                "WISE OLD KING:", 
-                "", 
-                "-i believe in", 
+                "WISE OLD KING:",
+                "",
+                "-i believe in",
                 " you!"
-            ], 
+            ],
             "name": "king-postPower"
-        }, 
+        },
         {
             "text": [
-                "VIGILANT GUARD:", 
-                "", 
-                "-the KING just", 
-                " texted me.", 
+                "VIGILANT GUARD:",
+                "",
+                "-the KING just",
+                " texted me.",
                 " you may pass."
-            ], 
+            ],
             "name": "guard-postKing"
-        }, 
+        },
         {
             "text": [
-                "all thanks to", 
-                "your bravery,", 
-                "resourcefulness", 
-                "and rugged good", 
+                "all thanks to",
+                "your bravery,",
+                "resourcefulness",
+                "and rugged good",
                 "looks."
-            ], 
+            ],
             "name": "goodEnding-2"
-        }, 
+        },
         {
             "text": [
-                "WISE OLD KING: ", 
-                "", 
-                "-bring us the", 
-                " OBLONG", 
+                "WISE OLD KING: ",
+                "",
+                "-bring us the",
+                " OBLONG",
                 " CONGLOMERATE."
-            ], 
+            ],
             "name": "king-preKing"
-        }, 
+        },
         {
             "text": [
-                "the moonlight", 
-                "seems warmer,", 
-                "somehow, as you", 
-                "press on with", 
+                "the moonlight",
+                "seems warmer,",
+                "somehow, as you",
+                "press on with",
                 "renewed vigour."
-            ], 
+            ],
             "name": "intermission-1++to2++"
-        }, 
+        },
         {
             "text": [
-                "", 
-                "-things turned", 
-                " out alright in", 
+                "",
+                "-things turned",
+                " out alright in",
                 " the end."
-            ], 
+            ],
             "name": "villager-postTriumph"
-        }, 
+        },
         {
             "text": [
-                "VIGILANT GUARD:", 
-                "", 
-                "-you have my", 
-                " grudging", 
+                "VIGILANT GUARD:",
+                "",
+                "-you have my",
+                " grudging",
                 " respect, sir."
-            ], 
+            ],
             "name": "guard-postTriumph"
-        }, 
+        },
         {
             "text": [
-                "WISE OLD KING:", 
-                "", 
-                "-thou recovered", 
-                " the OBLONG", 
+                "WISE OLD KING:",
+                "",
+                "-thou recovered",
+                " the OBLONG",
                 " CONGLOMERATE,"
-            ], 
+            ],
             "name": "king-postTriumph-0"
-        }, 
+        },
         {
             "text": [
-                " and thou art a", 
-                " real hero.", 
-                "", 
+                " and thou art a",
+                " real hero.",
+                "",
                 " good job!"
-            ], 
+            ],
             "name": "king-postTriumph-1"
-        }, 
+        },
         {
             "text": [
-                "what is this?!", 
-                "your noodle", 
-                "arms cannot", 
-                "lift the OBLONG", 
+                "what is this?!",
+                "your noodle",
+                "arms cannot",
+                "lift the OBLONG",
                 "CONGLOMERATE!"
-            ], 
+            ],
             "name": "failGet"
-        }, 
+        },
         {
             "text": [
-                "and there it", 
-                "is, the grand", 
-                "prize, calling", 
-                "out to you in a", 
+                "and there it",
+                "is, the grand",
+                "prize, calling",
+                "out to you in a",
                 "siren's voice."
-            ], 
+            ],
             "name": "intermission-2to3"
-        }, 
+        },
         {
             "text": [
-                "VIGILANT GUARD:", 
-                "", 
-                "-what? heading", 
-                " out again, are", 
+                "VIGILANT GUARD:",
+                "",
+                "-what? heading",
+                " out again, are",
                 " you? fine."
-            ], 
+            ],
             "name": "guard-postPower"
-        }, 
+        },
         {
             "text": [
-                "YOUNG VILLAGER:", 
-                "", 
+                "YOUNG VILLAGER:",
+                "",
                 "this is a town."
-            ], 
+            ],
             "name": "villager-preKing"
-        }, 
+        },
         {
             "text": [
-                "this time, you", 
-                "are prepared.", 
-                "", 
-                "you are making ", 
+                "this time, you",
+                "are prepared.",
+                "",
+                "you are making ",
                 "this happen!"
-            ], 
+            ],
             "name": "intermission-2++to3++"
-        }, 
+        },
         {
             "text": [
-                "it falls on you", 
-                "to deliver this", 
-                "land from evil", 
-                "and inevitable", 
+                "it falls on you",
+                "to deliver this",
+                "land from evil",
+                "and inevitable",
                 "   distraction."
-            ], 
+            ],
             "name": "opening-3"
-        }, 
+        },
         {
             "text": [
-                "+- CREDITS -+", 
-                "", 
-                "Everything:", 
+                "+- CREDITS -+",
+                "",
+                "everything:",
                 "     SKUNKFRUKT"
-            ], 
+            ],
             "name": "credits-0"
-        }, 
+        },
         {
             "text": [
-                "except PYGLET,", 
-                "which is used", 
-                "under a BSD", 
-                "3-cl. license;", 
-                "see LICENSE.BSD"
-            ], 
+                "except PYGLET,",
+                "which is used",
+                "under a bsd",
+                "3-clause",
+                "license."
+            ],
             "name": "credits-1"
-        }, 
+        },
         {
             "text": [
-                "you press on,", 
-                "defying the", 
-                "perils and", 
-                "obstacles of", 
+                "you press on,",
+                "defying the",
+                "perils and",
+                "obstacles of",
                 "the wilderness."
-            ], 
+            ],
             "name": "intermission-1to2"
-        }, 
+        },
         {
             "text": [
-                "", 
-                "", 
+                "",
+                "",
                 "      ..."
-            ], 
+            ],
+            "name": "dotDotDot"
+        },
+        {
+            "text": [
+                "and ever and",
+                "ever and ever",
+                "and ever and",
+                "ever and ever",
+                "and ever and"
+            ],
             "name": "bestEnding-5"
-        }, 
+        },
         {
             "text": [
-                "and ever and", 
-                "ever and ever", 
-                "and ever and", 
-                "ever and ever", 
-                "and ever and"
-            ], 
-            "name": "bestEnding-6"
-        }, 
-        {
-            "text": [
-                "ever and ever", 
-                "and ever and", 
-                "ever and ever", 
-                "and ever and", 
+                "ever and ever",
+                "and ever and",
+                "ever and ever",
+                "and ever and",
                 "ever and ever."
-            ], 
-            "name": "bestEnding-7"
-        }, 
+            ],
+            "name": "bestEnding-6"
+        },
         {
             "text": [
-                "+- EPILOGUE -+", 
-                "", 
-                "you marry the", 
-                "KING the very", 
+                "+- EPILOGUE -+",
+                "",
+                "you marry the",
+                "KING the very",
                 "next day, and"
-            ], 
+            ],
             "name": "bestEnding-0"
-        }, 
+        },
         {
             "text": [
-                "there is much", 
-                "rejoicing.", 
-                "under your kind", 
-                "and just rule,", 
+                "there is much",
+                "rejoicing.",
+                "under your kind",
+                "and just rule,",
                 "and with the"
-            ], 
+            ],
             "name": "bestEnding-1"
-        }, 
+        },
         {
             "text": [
-                "OBLONG", 
-                "CONGLOMERATE", 
-                "back where it", 
+                "OBLONG",
+                "CONGLOMERATE",
+                "back where it",
                 "belongs,"
-            ], 
+            ],
             "name": "bestEnding-2"
-        }, 
+        },
         {
             "text": [
-                "the kingdom", 
-                "prospers", 
-                "forever and", 
-                "ever and ever", 
+                "the kingdom",
+                "prospers",
+                "forever and",
+                "ever and ever",
                 "and ever and"
-            ], 
+            ],
             "name": "bestEnding-3"
         }
     ]
