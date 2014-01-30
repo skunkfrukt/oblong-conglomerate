@@ -48,7 +48,7 @@
  "orientation":"orthogonal",
  "properties":
     {
-
+     "offscreen_obstacles":"l"
     },
  "tileheight":4,
  "tilesets":[
