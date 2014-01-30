@@ -15,8 +15,10 @@ def parse_tilemap(json_obj):
     tmap.tileheight = json_obj['tileheight']
     tmap.width = json_obj['width']
     tmap.height = json_obj['height']
+    tmap.pxwidth = tmap.width * tmap.tilewidth
+    tmap.pxheight = tmap.height * tmap.tileheight
     tmap.version = json_obj['version']
-    # tmap.backgroundcolor = json_obj['backgroundcolor']
+    tmap.backgroundcolor = json_obj.get('backgroundcolor', '#000000')
     tmap.properties = json_obj['properties']
     tmapv = TileMapView(tmap)
     tmapv.tilesets = [parse_tileset(a) for a in json_obj['tilesets']]
@@ -66,6 +68,7 @@ class TileMap(object):
 
     def setup(self):
         self.obstacle = [False] * self.width * self.height
+        self.ladder = [False] * self.width * self.height
         for lay in self.layers:
             collision_type = lay.properties.get('collision-type', 'void')
             print 'layer', lay.name, 'type', collision_type
@@ -74,11 +77,13 @@ class TileMap(object):
                     for col in range(lay.width):
                         index = row * lay.width + col
                         if lay[index] > 0:
-                            w = self.tilewidth
-                            h = self.tileheight
-                            x = col * w
-                            y = row * h
                             self.obstacle[index] = True
+            elif collision_type == 'ladder':
+                for row in range(lay.height):
+                    for col in range(lay.width):
+                        index = row * lay.width + col
+                        if lay[index] > 0:
+                            self.ladder[index] = True
 
     def find_obstacle(self, coordinate_list):
         for col, row in coordinate_list:
@@ -91,10 +96,44 @@ class TileMap(object):
             tileindex = row * self.width + col
             return self.obstacle[tileindex]
         else:
-            return False  # Handle screen exit.
+            offscr_obs_list = self.properties.get('offscreen_obstacles', '')
+            offscreen_obstacle = any([
+                    (row >= self.height and 't' in offscr_obs_list),
+                    (row < 0 and 'b' in offscr_obs_list),
+                    (col >= self.width and 'r' in offscr_obs_list),
+                    (col < 0 and 'l' in offscr_obs_list)
+            ])
+            return offscreen_obstacle
+
+    def ladder_at(self, col, row):
+        if not col in range(self.width):
+            return False
+        elif row in range(self.height):
+            tileindex = row * self.width + col
+            return self.ladder[tileindex]
+        elif row < 0:
+            return self.ladder_at(col, 0)
+        elif row >= self.height:
+            return self.ladder_at(col, self.height - 1)
 
     def rect_at(self, col, row):
         return Rect(col * self.tilewidth, row * self.tileheight, self.tilewidth, self.tileheight)
+
+    def row_at_px(self, y):
+        row = 0
+        while y < 0:
+            row -= self.height
+            y += self.pxheight
+        row += y // self.tileheight
+        return int(row)
+
+    def col_at_px(self, x):
+        col = 0
+        while x < 0:
+            col -= self.width
+            x += self.pxwidth
+        col += x // self.tilewidth
+        return int(col)
 
 
 class Tile(object):

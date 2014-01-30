@@ -51,8 +51,10 @@ class TextScene(Scene):
 
 
 class GameScene(Scene):
-    def __init__(self, tilemap, tilemapview, hero_position):
+    def __init__(self, tilemap, tilemapview, hero_position, override_properties={}, nextdir=None):
+        self.nextdir = nextdir
         self.tilemap = tilemap
+        self.tilemap.properties.update(override_properties)
         self.tilemapview = tilemapview
         self.hero = knightexpert.KnightExpert()
         self.hero.hitbox.position = hero_position
@@ -64,18 +66,33 @@ class GameScene(Scene):
         self.tilemapview.setup()
 
     def mupdate(self, dt):
-        if self.hero.hitbox.x > 256:
+        if any([self.hero.hitbox.left >= self.tilemap.pxwidth and self.nextdir == 'r',
+                self.hero.hitbox.right < 0 and self.nextdir == 'l',
+                self.hero.hitbox.bottom >= self.tilemap.pxheight and self.nextdir == 't',
+                self.hero.hitbox.top < 0 and self.nextdir == 'b']):
             return 'next'
+        elif self.hero.hitbox.top < 0:
+            print 'THOU DIEST'
         self.hero.start_move(dt)
         delta = self.hero.velocity * dt
-        rows = range(int(self.hero.hitbox.bottom // self.tilemap.tileheight),
-                int(self.hero.hitbox.top // self.tilemap.tileheight) + 1)
+        herobox = self.hero.hitbox
+        tmap = self.tilemap
+        ladder_rows = range(tmap.row_at_px(herobox.bottom),
+                tmap.row_at_px(herobox.top)+1)
+        ladder_cols = range(tmap.col_at_px(herobox.left),
+                tmap.col_at_px(herobox.right)+1)
+        ladder_candidates = [(col, row) for col in ladder_cols for row in ladder_rows]
+        self.hero.can_climb = any([tmap.ladder_at(*cell) for cell in ladder_candidates])
+        if not self.hero.can_climb:
+            self.hero.unclimb()
+        rows = range(tmap.row_at_px(herobox.bottom),
+                tmap.row_at_px(herobox.top) + 1)
         if delta.x < 0:
-            cols = range(int((self.hero.hitbox.left - 1) // self.tilemap.tilewidth),
-                    int((self.hero.hitbox.left + delta.x) // self.tilemap.tilewidth) - 1, -1)
+            cols = range(tmap.col_at_px(herobox.left - 1),
+                    tmap.col_at_px(herobox.left + delta.x) - 1, -1)
         elif delta.x > 0:
-            cols = range(int((self.hero.hitbox.right + 1) // self.tilemap.tilewidth),
-                    int((self.hero.hitbox.right + delta.x) // self.tilemap.tilewidth) + 1)
+            cols = range(tmap.col_at_px(herobox.right + 1),
+                    tmap.col_at_px(herobox.right + delta.x) + 1)
         else:
             cols = []
         candidates_x = [(col, row) for col in cols for row in rows]
@@ -83,34 +100,36 @@ class GameScene(Scene):
         if hit_x:
             self.hero.velocity = Vect(0, self.hero.velocity.y)
             if delta.x < 0:
-                delta = Vect(hit_x.right + 1 - self.hero.hitbox.left, delta.y)
+                delta = Vect(hit_x.right + 1 - herobox.left, delta.y)
             elif delta.x > 0:
-                delta = Vect(hit_x.left - 1 - self.hero.hitbox.right, delta.y)
-        cols = range(int((self.hero.hitbox.left + delta.x) // self.tilemap.tilewidth),
-                int((self.hero.hitbox.right + delta.x) // self.tilemap.tilewidth) + 1)
+                delta = Vect(hit_x.left - 1 - herobox.right, delta.y)
+        cols = range(tmap.col_at_px(herobox.left + delta.x),
+                tmap.col_at_px(herobox.right + delta.x) + 1)
         if delta.y < 0:
-            rows = range(int((self.hero.hitbox.bottom - 1) // self.tilemap.tileheight),
-                    int((self.hero.hitbox.bottom + delta.y) // self.tilemap.tileheight) - 1, -1)
+            rows = range(tmap.row_at_px(herobox.bottom - 1),
+                    tmap.row_at_px(herobox.bottom + delta.y) - 1, -1)
         elif delta.y > 0:
-            rows = range(int((self.hero.hitbox.top + 1) // self.tilemap.tileheight),
-                    int((self.hero.hitbox.top + delta.y) // self.tilemap.tileheight) + 1)
+            rows = range(tmap.row_at_px(herobox.top + 1),
+                    tmap.row_at_px(herobox.top + delta.y) + 1)
         candidates_y = [(col, row) for row in rows for col in cols]
         hit_y = self.tilemap.find_obstacle(candidates_y)
         if hit_y:
+            '''if not (self.hero.climbing and tmap.ladder_at(
+                    tmap.col_at_px(hit_y.left), tmap.row_at_px(hit_y.bottom))):'''
             self.hero.velocity = Vect(self.hero.velocity.x, 0)
             if delta.y < 0:
-                delta = Vect(delta.x, hit_y.top + 1 - self.hero.hitbox.bottom)
+                delta = Vect(delta.x, hit_y.top + 1 - herobox.bottom)
                 if delta.x == 0:
                     self.hero.state = 'idle'
                 else:
                     self.hero.state = 'walking'
             elif delta.y > 0:
-                delta = Vect(delta.x, hit_y.bottom - 1 - self.hero.hitbox.top)
+                delta = Vect(delta.x, hit_y.bottom - 1 - herobox.top)
         self.hero.hitbox += delta
 
     def vupdate(self):
         player_position = self.hero.hitbox.x
-        screen_offset = int(-max(min(player_position - 32, 256 - 64), 0))
+        screen_offset = int(-max(min(player_position - 32, self.tilemap.pxwidth - 64), 0))
         self.tilemapview.update_sprite_position(Vect(x=screen_offset))
         self.heroview.update_sprite_position(Vect(screen_offset,0))
 

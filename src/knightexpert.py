@@ -18,14 +18,16 @@ class KnightExpert(object):
         self.jumping = False
         self.walking = None
         self.stopping = True
+        self.climbing = False
+        self.can_climb = False
         self.direction = 'L'
         self.state = 'falling'
 
     def start_move(self, dt):
-        # self.oldbox = self.hitbox
-        if True:  # self.state not in ('walking', 'idle'):
+        if not self.climbing:
             self.velocity += Vect(0, -120) * dt
-        # self.hitbox += self.velocity * dt
+        else:
+            self.velocity = Vect(0, 30)
 
     def walk(self, direction):
         if self.state not in ('hurt', 'dead'):
@@ -36,12 +38,21 @@ class KnightExpert(object):
     def unwalk(self):
         self.walk(None)
 
+    def climb(self):
+        if self.can_climb:
+            self.climbing = True
+            self.state = 'climbing'
+
+    def unclimb(self):
+        self.climbing = False
+        self.state = 'falling'
+
     def jump(self):
         if self.state in ('idle', 'walking'):
             self.velocity += Vect(0, 50)
             self.state = 'jumping'
         elif self.state == 'climbing':
-            self.state = 'falling'
+            self.unclimb()
 
     def update_lateral_velocity(self, direction):
         if direction == None:
@@ -50,6 +61,8 @@ class KnightExpert(object):
             self.velocity = Vect(self.runspeed, self.velocity.y)
         elif direction == 'L':
             self.velocity = Vect(-self.runspeed, self.velocity.y)
+        if self.climbing:
+            self.velocity += Vect(y=30)
 
     @property
     def position(self):
@@ -100,6 +113,8 @@ class KnightExpertController(object):
             self.model.walk('R')
         elif symbol == key.SPACE:
             self.model.jump()
+        elif symbol == key.UP:
+            self.model.climb()
 
     def on_key_release(self, symbol, modifiers):
         if symbol == key.LEFT:
@@ -114,4 +129,6 @@ class KnightExpertController(object):
                 self.model.walk('L')
             else:
                 self.model.unwalk()
+        elif symbol == key.UP:
+            self.model.unclimb()
 
