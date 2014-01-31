@@ -123,7 +123,7 @@
                 "yields to your",
                 "efforts."
             ],
-            "name": "getBlongCong"
+            "name": "oc-winGet"
         },
         {
             "text": [
@@ -227,7 +227,7 @@
                 " inside you all",
                 " along!"
             ],
-            "name": "king-prePower"
+            "name": "king-giveAdvice"
         },
         {
             "text": [
@@ -276,7 +276,7 @@
                 " OBLONG",
                 " CONGLOMERATE."
             ],
-            "name": "king-preKing"
+            "name": "king-giveQuest"
         },
         {
             "text": [
@@ -334,7 +334,7 @@
                 "lift the OBLONG",
                 "CONGLOMERATE!"
             ],
-            "name": "failGet"
+            "name": "oc-failGet"
         },
         {
             "text": [
