@@ -55,15 +55,26 @@ class GameScene(Scene):
         self.nextdir = nextdir
         self.tilemap = tilemap
         self.tilemap.properties.update(override_properties)
+        print self.tilemap.properties['offscreen_obstacles']
         self.tilemapview = tilemapview
         self.hero = knightexpert.KnightExpert()
+        self.initial_hero_position = hero_position
         self.hero.hitbox.position = hero_position
         self.heroview = knightexpert.KnightExpertView(self.hero)
         self.herocontroller = knightexpert.KnightExpertController(self.hero)
+        self.npcs = []
+        self.npcviews = []
 
     def setup(self):
         self.tilemap.setup()
         self.tilemapview.setup()
+        for npc in self.npcs:
+            npc.setup()
+        for npcv in self.npcviews:
+            npcv.setup()
+
+    def respawn(self):
+        self.hero.hitbox.position = self.initial_hero_position
 
     def mupdate(self, dt):
         if any([self.hero.hitbox.left >= self.tilemap.pxwidth and self.nextdir == 'r',
@@ -73,6 +84,11 @@ class GameScene(Scene):
             return 'next'
         elif self.hero.hitbox.top < 0:
             print 'THOU DIEST'
+            self.respawn()
+        elif self.hero.talking:
+            for npc in self.npcs:
+                if npc.hitbox & self.hero.hitbox and npc.can_talk:
+                    return 'next'
         self.hero.start_move(dt)
         delta = self.hero.velocity * dt
         herobox = self.hero.hitbox
@@ -131,10 +147,14 @@ class GameScene(Scene):
         player_position = self.hero.hitbox.x
         screen_offset = int(-max(min(player_position - 32, self.tilemap.pxwidth - 64), 0))
         self.tilemapview.update_sprite_position(Vect(x=screen_offset))
+        for npcv in self.npcviews:
+            npcv.update_sprite(Vect(x=screen_offset))
         self.heroview.update_sprite_position(Vect(screen_offset,0))
 
     def draw(self):
         self.tilemapview.batch.draw()
+        for npcv in self.npcviews:
+            npcv.drawable.draw()
         self.heroview.drawable.draw()
 
     def on_key_press(self, symbol, modifiers):

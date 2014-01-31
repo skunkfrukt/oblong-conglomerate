@@ -11,7 +11,7 @@ class KnightExpert(object):
         self.nextbox = self.hitbox
         self.velocity = Vect(0,0)
         self.acceleration = Vect(0,0)
-        self.runspeed = 40  # 20
+        self.runspeed = 20
         self.moving = False
         self.moved = False
         self.grounded = True
@@ -20,6 +20,7 @@ class KnightExpert(object):
         self.stopping = True
         self.climbing = False
         self.can_climb = False
+        self.talking = False
         self.direction = 'L'
         self.state = 'falling'
 
@@ -63,6 +64,12 @@ class KnightExpert(object):
             self.velocity = Vect(-self.runspeed, self.velocity.y)
         if self.climbing:
             self.velocity += Vect(y=30)
+
+    def talk(self):
+        self.talking = True
+
+    def untalk(self):
+        self.talking = False
 
     @property
     def position(self):
@@ -114,6 +121,7 @@ class KnightExpertController(object):
         elif symbol == key.SPACE:
             self.model.jump()
         elif symbol == key.UP:
+            self.model.talk()
             self.model.climb()
 
     def on_key_release(self, symbol, modifiers):
