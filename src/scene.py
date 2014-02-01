@@ -89,6 +89,7 @@ class GameScene(Scene):
             for npc in self.npcs:
                 if npc.hitbox & self.hero.hitbox and npc.can_talk:
                     return 'next'
+            self.hero.untalk()
         self.hero.start_move(dt)
         delta = self.hero.velocity * dt
         herobox = self.hero.hitbox

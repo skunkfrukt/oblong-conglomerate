@@ -138,5 +138,6 @@ class KnightExpertController(object):
             else:
                 self.model.unwalk()
         elif symbol == key.UP:
+            self.model.untalk()
             self.model.unclimb()
 
