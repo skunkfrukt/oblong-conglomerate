@@ -9,7 +9,7 @@ import json
 pyglet.resource.path.append('./data')
 pyglet.resource.reindex()
 
-SCALE = 4
+SCALE = 8
 
 f_bindings = {
     'a': 16*5+0,
@@ -158,6 +158,8 @@ town_2 = scene.GameScene(*tilemap.load('data/m_town.json'),
         override_properties={'offscreen_obstacles': 'r'})
 town_2.npcs.append(npcs.WiseOldKing(80, 4))
 town_2.npcviews.append(npcs.WiseOldKingView(town_2.npcs[-1]))
+king_win_0 = scene.TextScene(None, texts['king-win-0'], font)
+king_win_1 = scene.TextScene(None, texts['king-win-1'], font)
 goodending_0 = scene.TextScene(None, texts['goodEnding-0'], font)
 goodending_1 = scene.TextScene(None, texts['goodEnding-1'], font)
 goodending_2 = scene.TextScene(None, texts['goodEnding-2'], font)
@@ -166,8 +168,6 @@ anyending_0 = scene.TextScene(None, texts['anyEnding-0'], font)
 anyending_1 = scene.TextScene(None, texts['anyEnding-1'], font)
 dotdotdot = scene.TextScene(None, texts['dotDotDot'], font)
 anyending_2 = scene.TextScene(None, texts['anyEnding-2'], font)
-credits_0 = scene.TextScene(None, texts['credits-0'], font)
-credits_1 = scene.TextScene(None, texts['credits-1'], font)
 
 SCENES = [opening_1, opening_2, opening_3, title,
         town_0, king_giveQuest, town_0_0, stage1_0, intermission1_2_0,
@@ -175,14 +175,13 @@ SCENES = [opening_1, opening_2, opening_3, title,
         intermission3_2_1, stage2_1, intermission2_1_1, stage1_1,
         town_1, king_giveAdvice, town_1_0, stage1_2, intermission1_2_2,
         stage2_2, intermission2_3_2, stage3_2, oc_winGet, stage3_2_0,
-        stage2_3, stage1_3, triumphant_return, town_2,
-        goodending_0, goodending_1, goodending_2, goodending_3,
-        anyending_0, anyending_1, dotdotdot, anyending_2,
-        credits_0, credits_1]
+        stage2_3, stage1_3, triumphant_return, town_2, king_win_0, king_win_1,
+        goodending_0, goodending_1, goodending_2, goodending_3, anyending_0,
+        anyending_1, dotdotdot, anyending_2]
 
 class TestWindow(pyglet.window.Window):
     def __init__(self):
-        super(TestWindow, self).__init__(64*SCALE, 48*SCALE, caption="\'blong Cong")
+        super(TestWindow, self).__init__(64*SCALE, 48*SCALE, caption="The Quest for the Oblong Conglomerate")
         testmap = tilemap.load('data/m_stage1.json')
         map, mapv = testmap
         self.scene = SCENES.pop(0)
